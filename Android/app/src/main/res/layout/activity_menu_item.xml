@@ -30,34 +30,13 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/tv_dia"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:text="23"/>
-
-                <View
-                    android:id="@+id/separatorFecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/black"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:alpha="0.30"
-                    />
-
-                <TextView
                     android:id="@+id/tv_fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textAllCaps="true"
                     android:textSize="14sp"
-                    android:text="Noviembre Lunes"/>
+                    android:text="LUNES 14 DICIEMBRE"/>
 
             </LinearLayout>
 
@@ -139,11 +118,49 @@
                    android:background="@android:color/black"
                    android:alpha="0.2" />
 
+               <RelativeLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+
+                   <TextView
+                       android:id="@+id/tv_plato3"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginRight="25dp"
+                       android:text="3er plato"/>
+
+                   <ImageButton
+                       android:id="@+id/ib_plato3"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:paddingLeft="16dp"
+                       android:layout_centerVertical="true"
+                       android:layout_alignParentRight="true"
+                       android:alpha="0.3"
+                       android:visibility="gone"
+                       android:tint="@color/colorPrimaryDark"
+                       android:background="@android:color/transparent"
+                       android:src="@drawable/ic_notifications_none_black_24dp"/>
+
+               </RelativeLayout>
+
+               <View
+                   android:id="@+id/separatorp3"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="10dp"
+                   android:background="@android:color/black"
+                   android:visibility="gone"
+                   android:alpha="0.2" />
+
                <TextView
-                   android:id="@+id/tv_plato3"
+                   android:id="@+id/tv_plato4"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="3er plato"/>
+                   android:visibility="gone"
+                   android:text="4o plato"/>
 
 
            </LinearLayout>

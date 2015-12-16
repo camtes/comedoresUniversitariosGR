@@ -18,24 +18,13 @@ $plato4 = null;
 foreach($html->find('td') as $element) {
   if (strpos($element, "MARTES") or strpos($element, "MIÉRCOLES") or strpos($element, "JUEVES") or strpos($element, "VIERNES") or strpos($element, "SÁBADO") ) {
     $count = 0;
-
-    // Diferenciamos cuando hay un tercer plato de cuando no
-    if ($plato4 != null) {
-      $menudia = array(
-        'fecha' => $fecha,
-        'plato1' => $plato1,
-        'plato2' => $plato2,
-        'plato3' => $plato3,
-        'plato4' => $plato4);
-    }
-    else {
-      $menudia = array(
-        'fecha' => $fecha,
-        'plato1' => $plato1,
-        'plato2' => $plato2,
-        'plato3' => $plato3);
-    }
-
+    
+    $menudia = array(
+      'fecha' => $fecha,
+      'plato1' => $plato1,
+      'plato2' => $plato2,
+      'plato3' => $plato3,
+      'plato4' => $plato4);
 
     // Inicializamos de nuevo todo a null
     $fecha = null;

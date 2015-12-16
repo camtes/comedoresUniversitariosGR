@@ -6,17 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,12 +44,11 @@ public class MenuActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String siteUrl = "http://comedoresugr.tcomunica.org/";
-        ( new ParseURL() ).execute(new String[]{siteUrl});
-
         // Adaptador
         mAdapter = new MenuAdapter(menu_semanal, this);
         mRecyclerView.setAdapter(mAdapter);
+
+        new GetMenu().execute();
     }
 
     @Override
@@ -74,84 +76,52 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    private class ParseURL extends AsyncTask<String, Void, String> {
+    private class GetMenu extends AsyncTask<Void, Void, String> {
 
         @Override
-        protected String doInBackground(String... params) {
-            StringBuffer buffer = new StringBuffer();
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
-            List<String> plato1_ = new ArrayList<>();
-            List<String> plato2_ = new ArrayList<>();
-            List<String> plato3_ = new ArrayList<>();
-            List<String> fecha_ = new ArrayList<>();
-            List<String> dia_ = new ArrayList<>();
+        @Override
+        protected String doInBackground(Void... params) {
+            OkHttpClient client = new OkHttpClient();
+            String result = null;
+
+            Request request = new Request.Builder()
+                    .url("http://comedoresugr-ccamposfuentes.rhcloud.com/")
+                    .build();
+
             try {
-                Log.d("JSwa", "Connecting to ["+params[0]+"]");
-                Document doc  = Jsoup.connect(params[0]).get();
-                Log.d("JSwa", "Connected to ["+params[0]+"]");
-                // Get document (HTML page) title
-                String title = doc.title();
-                Log.d("JSwA", "Title ["+title+"]");
-                buffer.append("Title: " + title + "\r\n");
+                Response response = client.newCall(request).execute();
+                result = response.body().string();
 
-                // Get meta info
-                Elements metaElems = doc.select("meta");
-                buffer.append("META DATA\r\n");
-                for (Element metaElem : metaElems) {
-                    String name = metaElem.attr("name");
-                    String content = metaElem.attr("content");
-                    buffer.append("name ["+name+"] - content ["+content+"] \r\n");
-                }
-
-                Elements plato1 = doc.select("#plato1");
-                for (Element metaElement : plato1) {
-                    String name = metaElement.text();
-                    plato1_.add(name);
-                }
-
-                Elements plato2 = doc.select("#plato2");
-                for (Element metaElement : plato2) {
-                    String name = metaElement.text();
-                    plato2_.add(name);
-                }
-
-                Elements plato3 = doc.select("#plato3");
-                for (Element metaElement : plato3) {
-                    String name = metaElement.text();
-                    plato3_.add(name);
-                }
-
-                Elements fecha = doc.select("#fechaplato");
-                for (Element metaElement : fecha) {
-                    String name = metaElement.text();
-                    fecha_.add(name);
-                }
-
-                Elements dia = doc.select("div.numero");
-                for (Element metaElement : dia) {
-                    String name = metaElement.text();
-                    dia_.add(name);
-                }
-
-                for (int i=0; i<plato1_.size(); i++) {
-
-                    String fecha_calc = fecha_.get(i).replace(dia_.get(i), "");
-
-                    menu_semanal.add(new MenuSemanal(plato1_.get(i), plato2_.get(i), plato3_.get(i),
-                            Integer.valueOf(dia_.get(i)), fecha_calc));
-                }
-
-            }
-            catch(Throwable t) {
-                t.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            return buffer.toString();
+            return result;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            JSONArray array = null;
+            try {
+                array = new JSONArray(s);
+
+                for (int i=0; i<array.length(); i++) {
+                    JSONObject obj = array.getJSONObject(i);
+
+                    menu_semanal.add(new MenuSemanal(obj.getString("fecha"), obj.getString("plato1"),
+                            obj.getString("plato2"), obj.getString("plato3"), obj.getString("plato4")));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             mAdapter.notifyDataSetChanged();
             loadingPanel.setVisibility(View.GONE);
         }

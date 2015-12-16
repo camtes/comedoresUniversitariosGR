@@ -8,18 +8,16 @@ public class MenuSemanal {
     String primer_plato;
     String segundo_plato;
     String tercer_plato;
+    String cuarto_plato;
 
-    int dia;
     String fecha;
 
-    public MenuSemanal(String primer_plato, String segundo_plato, String tercer_plato, int dia,
-                       String fecha) {
-
+    public MenuSemanal(String fecha, String primer_plato, String segundo_plato, String tercer_plato, String cuarto_plato) {
+        this.fecha = fecha;
         this.primer_plato = primer_plato;
         this.segundo_plato = segundo_plato;
         this.tercer_plato = tercer_plato;
-        this.dia = dia;
-        this.fecha = fecha;
+        this.cuarto_plato = cuarto_plato;
     }
 
     public String getPrimer_plato() {
@@ -34,8 +32,8 @@ public class MenuSemanal {
         return tercer_plato;
     }
 
-    public int getDia() {
-        return dia;
+    public String getCuarto_plato() {
+        return cuarto_plato;
     }
 
     public String getFecha() {

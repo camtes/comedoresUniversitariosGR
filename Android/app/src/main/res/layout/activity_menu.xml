@@ -24,8 +24,8 @@
         >
 
         <View
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/circulo"
             android:backgroundTint="@android:color/white"
             android:layout_marginBottom="10dp"
@@ -33,10 +33,10 @@
 
         <ProgressBar
             style="@style/GenericProgressIndicator"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:elevation="5dp"
             />
 

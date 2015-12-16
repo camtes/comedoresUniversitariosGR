@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:layout_below="@id/tv_about_title"
-        android:text="Esta aplicación no es la oficial, tan solo hace uso de los datos publicados en 'comedoresugr.tcomunica.org'."/>
+        android:text="Esta aplicación no es la oficial, tan solo hace uso de los datos publicados en 'http://scu.ugr.es'."/>
 
     <TextView
         android:id="@+id/tv_about_author"

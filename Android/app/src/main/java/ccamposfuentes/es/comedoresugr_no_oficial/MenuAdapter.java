@@ -24,47 +24,48 @@ import java.util.List;
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
-    private List<MenuSemanal> menu_Semanal_semanal;
+    private List<MenuSemanal> menu_semanal;
     private Context context;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView dia;
         public TextView fecha;
 
         public TextView plato1;
         public TextView plato2;
         public TextView plato3;
+        public TextView plato4;
 
         public CardView card;
         public LinearLayout platos;
 
-        public ImageButton ib_plato1, ib_plato2;
+        public ImageButton ib_plato1, ib_plato2, ib_plato3;
 
-        public View separatorFecha, separatorP1, separatorP2;
+        public View separatorP1, separatorP2, separatorP3;
 
         public ViewHolder(View v) {
             super(v);
 
-            dia = (TextView) v.findViewById(R.id.tv_dia);
             fecha = (TextView) v.findViewById(R.id.tv_fecha);
             plato1 = (TextView) v.findViewById(R.id.tv_plato1);
             plato2 = (TextView) v.findViewById(R.id.tv_plato2);
             plato3 = (TextView) v.findViewById(R.id.tv_plato3);
+            plato4 = (TextView) v.findViewById(R.id.tv_plato4);
             card = (CardView) v.findViewById(R.id.cv_menu);
             platos = (LinearLayout) v.findViewById(R.id.ll_platos);
             separatorP1 = v.findViewById(R.id.separatorp1);
             separatorP2 = v.findViewById(R.id.separatorp2);
-            separatorFecha = v.findViewById(R.id.separatorFecha);
+            separatorP3 = v.findViewById(R.id.separatorp3);
             ib_plato1 = (ImageButton) v.findViewById(R.id.ib_plato1);
             ib_plato2 = (ImageButton) v.findViewById(R.id.ib_plato2);
+            ib_plato3 = (ImageButton) v.findViewById(R.id.ib_plato3);
         }
     }
 
     // Constructor, puedes crear varios según el tipo de contenido.
     public MenuAdapter(List<MenuSemanal> myDataset, Context context) {
-        menu_Semanal_semanal = myDataset;
+        menu_semanal = myDataset;
         this.context = context;
     }
 
@@ -86,32 +87,37 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
 
-        if (Integer.valueOf(s.toString()) == menu_Semanal_semanal.get(position).getDia()) {
+        if (menu_semanal.get(position).getFecha().contains(s.toString())) {
             holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.grey));
-            holder.dia.setBackgroundColor(context.getResources().getColor(R.color.grey));
             holder.fecha.setBackgroundColor(context.getResources().getColor(R.color.grey));
             holder.platos.setBackgroundColor(context.getResources().getColor(R.color.grey));
 
-            holder.dia.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
             holder.fecha.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
             holder.plato1.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
             holder.plato2.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
             holder.plato3.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
+            holder.plato4.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
 
-            holder.separatorFecha.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
             holder.separatorP1.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
             holder.separatorP2.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+            holder.separatorP3.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
         }
 
-        holder.dia.setText(String.valueOf(menu_Semanal_semanal.get(position).getDia()));
-        holder.fecha.setText(menu_Semanal_semanal.get(position).getFecha());
-        holder.plato1.setText(menu_Semanal_semanal.get(position).getPrimer_plato());
-        holder.plato2.setText(menu_Semanal_semanal.get(position).getSegundo_plato());
-        holder.plato3.setText(menu_Semanal_semanal.get(position).getTercer_plato());
+        holder.fecha.setText(menu_semanal.get(position).getFecha());
+        holder.plato1.setText(menu_semanal.get(position).getPrimer_plato());
+        holder.plato2.setText(menu_semanal.get(position).getSegundo_plato());
+        holder.plato3.setText(menu_semanal.get(position).getTercer_plato());
+        if (!menu_semanal.get(position).getCuarto_plato().equals("null")) {
+            holder.plato4.setVisibility(View.VISIBLE);
+            holder.ib_plato3.setVisibility(View.VISIBLE);
+            holder.separatorP3.setVisibility(View.VISIBLE);
+            holder.plato4.setText(menu_semanal.get(position).getCuarto_plato());
+        }
 
         if (holder.plato1.getText().toString().equals("CERRADO")) {
             holder.ib_plato1.setVisibility(View.GONE);
             holder.ib_plato2.setVisibility(View.GONE);
+            holder.ib_plato3.setVisibility(View.GONE);
         }
         
         // suscribirse al canal
@@ -142,6 +148,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return menu_Semanal_semanal.size();
+        return menu_semanal.size();
     }
 }
