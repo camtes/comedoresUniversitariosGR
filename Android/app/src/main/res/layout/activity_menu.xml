@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ccamposfuentes.es.comedoresugr_no_oficial.MenuActivity">
+    tools:context="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_menu"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -23,20 +24,13 @@
         android:paddingTop="16dp"
         >
 
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/circulo"
-            android:backgroundTint="@android:color/white"
-            android:layout_marginBottom="10dp"
-            android:elevation="5dp"/>
-
         <ProgressBar
             style="@style/GenericProgressIndicator"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_width="40dp"
+            android:indeterminateTint="@android:color/white"
             android:elevation="5dp"
             />
 

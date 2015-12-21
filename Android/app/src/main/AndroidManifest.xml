@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ccamposfuentes.es.comedoresugr_no_oficial">
+    package="ccamposfuentes.es.comedores_universitarios_gr">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,17 +10,17 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission android:protectionLevel="signature"
-        android:name="ccamposfuentes.es.comedoresugr_no_oficial.permission.C2D_MESSAGE" />
-    <uses-permission android:name="ccamposfuentes.es.comedoresugr_no_oficial.permission.C2D_MESSAGE" />
+        android:name="ccamposfuentes.es.comedores_universitarios_gr.permission.C2D_MESSAGE" />
+    <uses-permission android:name="ccamposfuentes.es.comedores_universitarios_gr.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".MenuIni"
+        android:name="ccamposfuentes.es.comedores_universitarios_gr.MenuIni"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ccamposfuentes.es.comedoresugr_no_oficial.MenuActivity">
+        <activity android:name="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +28,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ccamposfuentes.es.comedoresugr_no_oficial.AboutActivity"
+            android:name="ccamposfuentes.es.comedores_universitarios_gr.AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName="ccamposfuentes.es.comedoresugr_no_oficial.MenuActivity"
+            android:parentActivityName="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ccamposfuentes.es.comedoresugr_no_oficial.MenuActivity" />
+                android:value="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity" />
         </activity>
 
 
@@ -57,7 +57,7 @@
                 <!--
                   IMPORTANT: Change "com.parse.starter" to match your app's package name.
                 -->
-                <category android:name="ccamposfuentes.es.comedoresugr_no_oficial" />
+                <category android:name="ccamposfuentes.es.comedores_universitarios_gr" />
             </intent-filter>
         </receiver>
         <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/ic_stat_comedores"/>

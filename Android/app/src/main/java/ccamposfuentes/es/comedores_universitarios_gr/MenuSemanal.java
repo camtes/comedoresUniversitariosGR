@@ -1,4 +1,4 @@
-package ccamposfuentes.es.comedoresugr_no_oficial;
+package ccamposfuentes.es.comedores_universitarios_gr;
 
 /**
  * Created by ccamposfuentes on 27/11/15.

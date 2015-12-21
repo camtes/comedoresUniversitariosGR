@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Comedores UGR</string>
+    <string name="app_name">Comedores universitarios GR</string>
     <string name="action_about">Info</string>
     <string name="title_activity_about">Acerca de</string>
 </resources>

@@ -1,4 +1,4 @@
-package ccamposfuentes.es.comedoresugr_no_oficial;
+package ccamposfuentes.es.comedores_universitarios_gr;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -35,6 +35,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        getSupportActionBar().setElevation(0);
 
         menu_semanal = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_menu);
