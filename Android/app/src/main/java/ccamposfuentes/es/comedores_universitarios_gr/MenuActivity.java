@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
@@ -37,7 +38,6 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         getSupportActionBar().setElevation(0);
-
         menu_semanal = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_menu);
         loadingPanel = (RelativeLayout) findViewById(R.id.loadingPanel);
@@ -50,7 +50,13 @@ public class MenuActivity extends AppCompatActivity {
         mAdapter = new MenuAdapter(menu_semanal, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        new GetMenu().execute();
+        try {
+            new GetMenu().execute();
+        }
+        catch (Exception e) {
+            Log.e("GetMenu", e.toString());
+        }
+
     }
 
     @Override

@@ -22,7 +22,8 @@ if ($actualizado) {
 
 // Find all links
 foreach($html->find('td') as $element) {
-  if (strpos($element, "MARTES") or strpos($element, "MIÉRCOLES") or strpos($element, "JUEVES") or strpos($element, "VIERNES") or strpos($element, "SÁBADO") ) {
+
+  if (strpos($element, "MARTES") or strpos($element, "MIÉRCOLES") or strpos($element, "JUEVES") or strpos($element, "VIERNES") or strpos($element, "SÁBADO")) {
     $count = 0;
 
     $menudia = array(
@@ -66,7 +67,10 @@ foreach($html->find('td') as $element) {
       //array_push($menudia, "'plato4':'$element->plaintext'");
       break;
   }
+
+
   $count = $count +1 ;
+
 }
 
 echo json_encode($json);

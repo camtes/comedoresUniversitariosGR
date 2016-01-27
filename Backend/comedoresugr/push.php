@@ -5,9 +5,7 @@ $weekday = null;
 $day = null;
 
 $today = getdate();
-
-if ($weekday != $today['weekday']) {
-  $weekday = $today['weekday'];
+$weekday = $today['weekday'];
 
   switch ($weekday) {
     case 'Monday':
@@ -27,7 +25,7 @@ if ($weekday != $today['weekday']) {
       break;
   }
 
-  echo $day;
-}
+  
+
 
 ?>

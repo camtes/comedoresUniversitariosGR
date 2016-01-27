@@ -36,6 +36,7 @@ function sendPush($data=array(), $channels=array()){
 
 	$push_payload = json_encode(array(
         "where" => $where,
+				//"channels" => ["PHPFans"],
         "data" => $data
 	));
 

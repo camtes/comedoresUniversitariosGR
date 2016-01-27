@@ -9,18 +9,20 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:protectionLevel="signature"
-        android:name="ccamposfuentes.es.comedores_universitarios_gr.permission.C2D_MESSAGE" />
+    <permission
+        android:name="ccamposfuentes.es.comedores_universitarios_gr.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="ccamposfuentes.es.comedores_universitarios_gr.permission.C2D_MESSAGE" />
 
     <application
-        android:name="ccamposfuentes.es.comedores_universitarios_gr.MenuIni"
+        android:name=".MenuIni"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity">
+        <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,19 +30,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ccamposfuentes.es.comedores_universitarios_gr.AboutActivity"
+            android:name=".AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity"
-            >
+            android:parentActivityName=".MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity" />
         </activity>
 
-
         <!-- PARSE -->
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -48,19 +50,31 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
+                <!-- IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
                 <category android:name="ccamposfuentes.es.comedores_universitarios_gr" />
             </intent-filter>
         </receiver>
-        <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/ic_stat_comedores"/>
+
+        <meta-data
+            android:name="com.parse.push.notification_icon"
+            android:resource="@drawable/ic_stat_logo_noti" />
+
+        <activity
+            android:name=".CanalesActivity"
+            android:label="@string/title_activity_canales"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ccamposfuentes.es.comedores_universitarios_gr.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
-    android:background="@color/colorPrimary"
     android:paddingRight="16dp"
     tools:context="ccamposfuentes.es.comedores_universitarios_gr.AboutActivity"
     >
@@ -18,7 +17,8 @@
         android:text="Comedores universitarios Granada"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:alpha="0.8"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="21sp"
         android:textStyle="bold"/>
 
@@ -28,7 +28,7 @@
         android:alpha="0.2"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@android:color/white"
+        android:background="@android:color/black"
         android:layout_below="@id/tv_about_title"
         />
 
@@ -37,8 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:alpha="0.8"
-        android:textColor="@android:color/white"
+        android:alpha="0.6"
+        android:textColor="@android:color/black"
         android:layout_below="@id/tv_about_title"
         android:text="Aplicación que saca de scu.ugr.es el menú semanal de los comedores universitarios de Granada."/>
 
@@ -47,8 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_about_desc"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_marginTop="50dp"
+        android:alpha="0.8"
         android:textAllCaps="true"
         android:textSize="21sp"
         android:textAlignment="center"
@@ -60,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.2"
-        android:background="@android:color/white"
+        android:background="@android:color/black"
         android:layout_below="@id/tv_about_author"
         />
 
@@ -73,7 +74,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="Carlos Campos"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@id/tv_about_author"/>
 
     <TextView
@@ -83,8 +84,7 @@
         android:linksClickable="true"
         android:alpha="0.8"
         android:autoLink="email"
-        android:textColorLink="@color/link"
-        android:textColor="@android:color/white"
+        android:textColorLink="@color/colorPrimary"
         android:text="carlos@ccamposfuentes.es"
         android:paddingBottom="8dp"
         android:layout_below="@id/tv_about_name"/>
@@ -94,10 +94,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.8"
-        android:textColor="@android:color/white"
         android:paddingBottom="8dp"
         android:linksClickable="true"
-        android:textColorLink="@color/link"
+        android:textColorLink="@color/colorPrimary"
         android:autoLink="web"
         android:text="http://www.ccamposfuentes.es"
         android:layout_below="@id/tv_about_email"/>
@@ -106,9 +105,8 @@
         android:id="@+id/tv_about_mas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
         android:layout_below="@id/tv_about_web"
-        android:textColorLink="@color/link"
+        android:textColorLink="@color/colorPrimary"
         android:linksClickable="true"
         android:alpha="0.8"
         android:autoLink="web"

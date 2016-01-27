@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
+import com.parse.SaveCallback;
 
 import java.util.Date;
 import java.util.List;
@@ -81,25 +82,24 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // - Se recupera el elemento del vector con position.
+        ParseInstallation.getCurrentInstallation().saveInBackground();
         Date d = new Date();
         CharSequence s  = DateFormat.format("d", d.getTime());
-        ParseInstallation.getCurrentInstallation().saveInBackground();
-
 
         if (menu_semanal.get(position).getFecha().contains(s.toString())) {
             holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.grey));
             holder.fecha.setBackgroundColor(context.getResources().getColor(R.color.grey));
             holder.platos.setBackgroundColor(context.getResources().getColor(R.color.grey));
 
-            holder.fecha.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
-            holder.plato1.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
-            holder.plato2.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
-            holder.plato3.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
-            holder.plato4.setTextColor(context.getResources().getColor(R.color.cardview_light_background));
+            holder.fecha.setTextColor(context.getResources().getColor(R.color.white));
+            holder.plato1.setTextColor(context.getResources().getColor(R.color.white));
+            holder.plato2.setTextColor(context.getResources().getColor(R.color.white));
+            holder.plato3.setTextColor(context.getResources().getColor(R.color.white));
+            holder.plato4.setTextColor(context.getResources().getColor(R.color.white));
 
-            holder.separatorP1.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
-            holder.separatorP2.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
-            holder.separatorP3.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+            holder.separatorP1.setBackgroundColor(context.getResources().getColor(R.color.white));
+            holder.separatorP2.setBackgroundColor(context.getResources().getColor(R.color.white));
+            holder.separatorP3.setBackgroundColor(context.getResources().getColor(R.color.white));
         }
 
         holder.fecha.setText(menu_semanal.get(position).getFecha());
@@ -123,12 +123,16 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.ib_plato1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Te avisaremos cuando vuelva haber '"+
+                Toast.makeText(context, "Te avisaremos la próxima vez que haya '"+
                         holder.plato1.getText().toString()+"'.", Toast.LENGTH_LONG).show();
 
                 String plato = holder.plato1.getText().toString();
                 plato = plato.replace(" ","_");
-                ParsePush.subscribeInBackground(plato);
+
+                if (plato.contains("ñ"))
+                    plato = plato.replace("ñ","n");
+                SaveCallback callback = null;
+                ParsePush.subscribeInBackground(plato, callback);
             }
         });
 

@@ -10,14 +10,15 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/colorAccent"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp"
         />
 
     <RelativeLayout
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         style="@style/GenericProgressBackground"
         android:id="@+id/loadingPanel"

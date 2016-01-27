@@ -1,6 +1,7 @@
 package ccamposfuentes.es.comedores_universitarios_gr;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
