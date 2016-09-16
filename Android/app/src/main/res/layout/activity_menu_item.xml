@@ -12,8 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="3dp"
-        app:cardElevation="3dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:cardElevation="1dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
         card_view:cardUseCompatPadding="true"
         >
 
@@ -34,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
+                    android:textStyle="bold"
                     android:textAllCaps="true"
                     android:textSize="14sp"
                     android:text="LUNES 14 DICIEMBRE"/>
@@ -68,6 +72,7 @@
                        android:tint="@color/colorPrimaryDark"
                        android:alpha="0.3"
                        android:background="@android:color/transparent"
+                       android:visibility="gone"
                        android:src="@drawable/ic_notifications_none_black_24dp"/>
 
                </RelativeLayout>
@@ -102,6 +107,7 @@
                        android:layout_centerVertical="true"
                        android:layout_alignParentRight="true"
                        android:alpha="0.3"
+                       android:visibility="gone"
                        android:tint="@color/colorPrimaryDark"
                        android:background="@android:color/transparent"
                        android:src="@drawable/ic_notifications_none_black_24dp"/>

@@ -32,6 +32,18 @@
         android:layout_below="@id/tv_about_title"
         />
 
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/tv_about_title"
+        android:src="@drawable/icon"
+        android:alpha="0.03"
+        android:tint="@color/cardview_dark_background"
+        />
+
     <TextView
         android:id="@+id/tv_about_desc"
         android:layout_width="match_parent"
@@ -40,7 +52,7 @@
         android:alpha="0.6"
         android:textColor="@android:color/black"
         android:layout_below="@id/tv_about_title"
-        android:text="Aplicación que saca de scu.ugr.es el menú semanal de los comedores universitarios de Granada."/>
+        android:text="Con esta aplicación podrás estár al tanto del menú semanal que preparan en las distintas universidades de Granada.\n\nLos datos son obtenidos desde la página web http://scu.ugr.es"/>
 
     <TextView
         android:id="@+id/tv_about_author"
@@ -48,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_about_desc"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:alpha="0.8"
         android:textAllCaps="true"
         android:textSize="21sp"
@@ -70,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:alpha="0.8"
+        android:alpha="0.6"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="Carlos Campos"
@@ -85,6 +97,7 @@
         android:alpha="0.8"
         android:autoLink="email"
         android:textColorLink="@color/colorPrimary"
+        android:textStyle="bold"
         android:text="carlos@ccamposfuentes.es"
         android:paddingBottom="8dp"
         android:layout_below="@id/tv_about_name"/>
@@ -96,6 +109,7 @@
         android:alpha="0.8"
         android:paddingBottom="8dp"
         android:linksClickable="true"
+        android:textStyle="bold"
         android:textColorLink="@color/colorPrimary"
         android:autoLink="web"
         android:text="http://www.ccamposfuentes.es"

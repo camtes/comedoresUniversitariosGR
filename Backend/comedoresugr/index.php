@@ -5,6 +5,7 @@ header('Content-Type: text/html; charset=UTF-8');
 $html = file_get_html('http://scu.ugr.es/');
 
 $count = 0;
+$iterador = 0;
 $json = array();
 $menudia = array();
 $actualizado = false;
@@ -67,11 +68,17 @@ foreach($html->find('td') as $element) {
       //array_push($menudia, "'plato4':'$element->plaintext'");
       break;
   }
-
-
   $count = $count +1 ;
-
 }
 
+$menudia = array(
+  'fecha' => $fecha,
+  'plato1' => $plato1,
+  'plato2' => $plato2,
+  'plato3' => $plato3,
+  'plato4' => $plato4);
+array_push($json, $menudia);
+
 echo json_encode($json);
+
 ?>
