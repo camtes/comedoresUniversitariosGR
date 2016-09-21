@@ -68,6 +68,7 @@ foreach($html->find('td') as $element) {
       //array_push($menudia, "'plato4':'$element->plaintext'");
       break;
   }
+
   $count = $count +1 ;
 }
 

@@ -1,6 +1,9 @@
 package ccamposfuentes.es.comedores_universitarios_gr;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -8,28 +11,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.SaveCallback;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ccamposfuentes.es.comedores_universitarios_gr.util.Util;
+
 /**
- * Created by ccamposfuentes on 27/11/15.
+ * Author: Carlos Campos
+ * Email: carlos@ccamposfuentes.es
+ * Date: 27/11/15
+ * Project: Comedores Android
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     private List<MenuSemanal> menu_semanal;
     private Context context;
-
+    private String plato1, plato2, plato3;
+    private List<List<Boolean>> fav;
+    private boolean plato1Fav = false, plato2Fav = false, plato3Fav = false;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public ImageView favorite;
         public TextView fecha;
 
         public TextView plato1;
@@ -47,6 +55,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         public ViewHolder(View v) {
             super(v);
 
+            favorite = (ImageView) v.findViewById(R.id.iv_favorite);
             fecha = (TextView) v.findViewById(R.id.tv_fecha);
             plato1 = (TextView) v.findViewById(R.id.tv_plato1);
             plato2 = (TextView) v.findViewById(R.id.tv_plato2);
@@ -66,6 +75,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     // Constructor, puedes crear varios según el tipo de contenido.
     public MenuAdapter(List<MenuSemanal> myDataset, Context context) {
         menu_semanal = myDataset;
+        this.fav = new ArrayList<>();
         this.context = context;
     }
 
@@ -75,82 +85,180 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
         View viewRoot = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_menu_item, parent, false);
-        ViewHolder vh = new ViewHolder(viewRoot);
-        return vh;
+
+        return new ViewHolder(viewRoot);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // - Se recupera el elemento del vector con position.
-        ParseInstallation.getCurrentInstallation().saveInBackground();
         Date d = new Date();
         CharSequence s  = DateFormat.format("d", d.getTime());
+        final MenuSemanal week = menu_semanal.get(position);
 
-        if (menu_semanal.get(position).getFecha().contains(s.toString())) {
-            holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.grey));
-            holder.fecha.setBackgroundColor(context.getResources().getColor(R.color.grey));
-            holder.platos.setBackgroundColor(context.getResources().getColor(R.color.grey));
-
-            holder.fecha.setTextColor(context.getResources().getColor(R.color.white));
-            holder.plato1.setTextColor(context.getResources().getColor(R.color.white));
-            holder.plato2.setTextColor(context.getResources().getColor(R.color.white));
-            holder.plato3.setTextColor(context.getResources().getColor(R.color.white));
-            holder.plato4.setTextColor(context.getResources().getColor(R.color.white));
-
-            holder.separatorP1.setBackgroundColor(context.getResources().getColor(R.color.white));
-            holder.separatorP2.setBackgroundColor(context.getResources().getColor(R.color.white));
-            holder.separatorP3.setBackgroundColor(context.getResources().getColor(R.color.white));
+        if (week.getFecha().contains(s.toString())) {
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.yellow));
+            holder.fecha.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow));
+            holder.platos.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow));
         }
 
-        holder.fecha.setText(menu_semanal.get(position).getFecha());
-        holder.plato1.setText(menu_semanal.get(position).getPrimer_plato());
-        holder.plato2.setText(menu_semanal.get(position).getSegundo_plato());
-        holder.plato3.setText(menu_semanal.get(position).getTercer_plato());
-        if (!menu_semanal.get(position).getCuarto_plato().equals("null")) {
-            holder.plato4.setVisibility(View.VISIBLE);
-            holder.ib_plato3.setVisibility(View.VISIBLE);
-            holder.separatorP3.setVisibility(View.VISIBLE);
-            holder.plato4.setText(menu_semanal.get(position).getCuarto_plato());
-        }
+        holder.fecha.setText(week.getFecha());
 
-        if (holder.plato1.getText().toString().equals("CERRADO")) {
+        if (week.getPrimer_plato().equals("  CERRADO  ")) {
+
+            // Ocultamos botones
             holder.ib_plato1.setVisibility(View.GONE);
             holder.ib_plato2.setVisibility(View.GONE);
             holder.ib_plato3.setVisibility(View.GONE);
+
+            // Ocultamos separadores
+            holder.separatorP1.setVisibility(View.GONE);
+            holder.separatorP2.setVisibility(View.GONE);
+            holder.separatorP3.setVisibility(View.GONE);
+
+            // "Centramos" texto cerrado
+            holder.plato1.setText("");
+            holder.plato2.setText(context.getText(R.string.closed));
+            holder.plato3.setText("");
+            holder.plato2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.grey_light));
+        }
+        else {
+            holder.plato1.setText(week.getPrimer_plato());
+            holder.plato2.setText(week.getSegundo_plato());
+            holder.plato3.setText(week.getTercer_plato());
+
+            if (Util.isCourseFav(context, holder.plato1.getText().toString())) {
+                holder.ib_plato1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+                week.setPlato1_fav(true);
+            }
+
+            if (Util.isCourseFav(context, holder.plato2.getText().toString())) {
+                holder.ib_plato2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+                week.setPlato2_fav(true);
+            }
+
+            if (Util.isCourseFav(context, holder.plato3.getText().toString())) {
+                holder.ib_plato3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+                week.setPlato3_fav(true);
+            }
+        }
+
+        if (!week.getCuarto_plato().equals("null")) {
+            holder.plato4.setVisibility(View.VISIBLE);
+            holder.ib_plato3.setVisibility(View.VISIBLE);
+            if (Util.isCourseFav(context, holder.plato3.getText().toString())) {
+                holder.ib_plato3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+            }
+            holder.separatorP3.setVisibility(View.VISIBLE);
+            holder.plato4.setText(week.getCuarto_plato());
+
+            holder.ib_plato3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    plato1 = holder.plato1.getText().toString();
+                    plato1 = plato1.replace(" ","_");
+                    plato2 = holder.plato2.getText().toString();
+                    plato2 = plato2.replace(" ","_");
+                    plato3 = holder.plato3.getText().toString();
+                    plato3 = plato3.replace(" ","_");
+
+                    if (!week.isPlato3_fav()) {
+                        holder.favorite.setVisibility(View.VISIBLE);
+                        holder.ib_plato3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+                        Util.saveCourse(context, plato3);
+                        week.setPlato3_fav(true);
+                    }
+                    else {
+                        holder.ib_plato3.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border_black_24dp));
+                        Util.removeCourse(context, plato3);
+                        week.setPlato3_fav(false);
+
+                        if (!Util.isCourseFav(context, plato1) && !Util.isCourseFav(context, plato2)) {
+                            holder.favorite.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+            });
         }
         
         // suscribirse al canal
         holder.ib_plato1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Te avisaremos la próxima vez que haya '"+
-                        holder.plato1.getText().toString()+"'.", Toast.LENGTH_LONG).show();
+                plato1 = holder.plato1.getText().toString();
+                plato1 = plato1.replace(" ","_");
+                plato2 = holder.plato2.getText().toString();
+                plato2 = plato2.replace(" ","_");
 
-                String plato = holder.plato1.getText().toString();
-                plato = plato.replace(" ","_");
+                if (!week.isPlato1_fav()) {
+                    holder.favorite.setVisibility(View.VISIBLE);
+                    holder.ib_plato1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+                    Util.saveCourse(context, plato1);
+                    week.setPlato1_fav(true);
+                }
+                else {
+                    holder.ib_plato1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border_black_24dp));
+                    Util.removeCourse(context, plato1);
+                    week.setPlato1_fav(false);
 
-                if (plato.contains("ñ"))
-                    plato = plato.replace("ñ","n");
-                SaveCallback callback = null;
-                ParsePush.subscribeInBackground(plato, callback);
+                    if (!Util.isCourseFav(context, plato2)) {
+                        holder.favorite.setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         });
 
         holder.ib_plato2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Te avisaremos cuando vuelva haber '"+
-                        holder.plato2.getText().toString()+"'.", Toast.LENGTH_LONG).show();
+                plato1 = holder.plato1.getText().toString();
+                plato1 = plato1.replace(" ","_");
+                plato2 = holder.plato2.getText().toString();
+                plato2 = plato2.replace(" ","_");
 
-                String plato = holder.plato2.getText().toString();
-                plato = plato.replace(" ","_");
-                ParsePush.subscribeInBackground(plato);
+                if (!week.isPlato2_fav()) {
+                    holder.favorite.setVisibility(View.VISIBLE);
+                    holder.ib_plato2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_black_24dp));
+                    Util.saveCourse(context, plato2);
+                    week.setPlato2_fav(true);
+                }
+                else {
+                    holder.ib_plato2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_border_black_24dp));
+                    Util.removeCourse(context, plato2);
+                    week.setPlato2_fav(false);
+
+                    if (!Util.isCourseFav(context, plato1)) {
+                        holder.favorite.setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         });
+
+
+        if (isFavorite(position)) {
+            holder.favorite.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public int getItemCount() {
         return menu_semanal.size();
+    }
+
+    public boolean isFavorite(int position) {
+
+        String plato1 = menu_semanal.get(position).getPrimer_plato();
+        plato1 = plato1.replace(" ","_");
+        String plato2 = menu_semanal.get(position).getSegundo_plato();
+        plato2 = plato2.replace(" ","_");
+
+        if (Util.isCourseFav(context, plato1) || Util.isCourseFav(context, plato2)) {
+            return true;
+        }
+
+        return false;
     }
 }
